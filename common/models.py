@@ -10,27 +10,22 @@ GENDER_CHOICE = (
 )
 
 
+# Base code from internet
+#  : https://developer-stories.tistory.com/17
 class UserManager(BaseUserManager):
 
     def _create_user(self, email, username, password, gender=2, **extra_fields):
 
         """
-
         Create and save a user with the given username, email, and password.
-
         """
-
         if not email:
             raise ValueError('The given email must be set')
 
         email = self.normalize_email(email)
-
         username = self.model.normalize_username(username)
-
         user = self.model(email=email, username=username, gender=gender, **extra_fields)
-
         user.set_password(password)
-
         user.save(using=self._db)
 
         return user
@@ -38,7 +33,6 @@ class UserManager(BaseUserManager):
     def create_user(self, email, username='', password=None, **extra_fields):
 
         extra_fields.setdefault('is_staff', False)
-
         extra_fields.setdefault('is_superuser', False)
 
         return self._create_user(email, username, password, **extra_fields)
@@ -46,7 +40,6 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
 
         extra_fields.setdefault('is_staff', True)
-
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
@@ -57,7 +50,8 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, 'blogs/like_section.html', password, **extra_fields)
 
-
+# Base code from internet
+#  : https://developer-stories.tistory.com/17
 class User(AbstractUser):
     gender = models.SmallIntegerField(choices=GENDER_CHOICE)
     birth_date = models.DateField(null=True, blank=True)
@@ -79,6 +73,8 @@ class User(AbstractUser):
 
 
 # Extend Group
+# Base code form internet
+#  : https://www.generacodice.com/en/articolo/560043/How-do-I-extend-the-Django-Group-model
 class StaffGroup(Group):
     notes = models.TextField(max_length=255, blank=True)
 

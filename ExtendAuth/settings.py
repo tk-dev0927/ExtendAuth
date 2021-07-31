@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-# 확장한 User 모델 지정
+# Set authentication user model
 AUTH_USER_MODEL = 'common.User'
 
 # Password validation
